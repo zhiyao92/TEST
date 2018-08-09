@@ -1,0 +1,39 @@
+<h1>Home Page</h1>
+
+<% if current_user %>
+
+<% if current_user.admin == true%>
+<h2> Welcome Admin</h2>
+
+<h3> List of users</h3>
+
+<table>
+<tr>
+<th><strong> Emails</strong></th>
+<th><strong> Created At</strong></th>
+<th><strong> Admin? </th>
+</tr>
+
+<% @users = User.all %>
+<% @users.each do |user| %>
+ <tr><td><%= user.email %> </td>
+ <td><%= user.created_at %> </td>
+ <td><%= user.admin %>
+ </tr>
+ <% end %>
+
+</table>
+<% else %>
+<h2>Hello World</h2>
+<% end %>
+
+<br>
+<%= link_to 'Sign Out', destroy_user_session_path, method: :delete%>
+
+<% else %>
+
+<%= link_to 'Sign Up', new_user_registration_path %>
+
+<%= link_to 'Sign In', new_user_session_path%>
+
+<% end %>
